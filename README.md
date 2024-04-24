@@ -52,4 +52,6 @@
 
     <img src="./config/cell_1.png">
 
-    위의 사진과 같이 실행하고 나서 
+    위의 사진과 같이 실행하고 나서 변화된 Directory를 살펴보면 아래와 같이 나타나는 것을 확인할 수 있다.
+
+    <img src="./config/content_configuration.png">
