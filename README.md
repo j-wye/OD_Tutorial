@@ -71,3 +71,5 @@
     위와 같은 코드를 통해 Object Detection을 진행했을 때, 아래와 같이 결과가 출력되면 제대론 된 것이다.
 
     <img src="./config/zidane_detect.png" >
+
+## Fine Tuning with Custom Dataset [🔗](./fine_tuning.md)
