@@ -72,4 +72,6 @@
 
     <img src="./config/zidane_detect.png" >
 
-## Fine Tuning with Custom Dataset [🔗](./fine_tuning.md)
+## Training [🔗](./training.md)
+
+## Fine Tuning with Custom Dataset
