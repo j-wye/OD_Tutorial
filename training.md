@@ -35,6 +35,19 @@
     
     위와 같이 저장되었다고 나타난다면 제대로 learning이 끝났다.
 
+    ```python
+    import cv2
+    from google.colab.patches import cv2_imshow
+
+    result_path = 'runs/train/exp/results.png'
+    result = cv2.imread(result_path)
+    cv2_imshow(result)
+    ```
+    <img src="./config/training_result.png">
+    
+    위의 코드를 통해 위의 이미지와 같은 학습의 결과가 나오는 것을 확인할 수 있다.
+    
+
 3. Detection
 
     Pretrained model을 사용하는 것이 아니라 직접 training을 시켜서 weight파일을 얻는 경우에는, /yolov5/runs/train/exp 폴더 안에 결과값이 저장된다.
