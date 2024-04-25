@@ -17,7 +17,7 @@
 
 2. Training
     ```python
-    !python train.py --weights '' --cfg models/yolov5m.yaml --data coco128.yaml --epochs 300 --batch-size 128
+    !python train.py --weights '' --cfg models/yolov5m.yaml --data coco128.yaml --epochs 300 --batch-size 32
     ```
     `coco128` 이라는 dataset을 직접 학습을 진행한다.
 
@@ -29,4 +29,30 @@
 
     <img src="./config/training.png">
 
+    위의 사진에 맨 아래에 epoch가 0부터 299까지 나오고 순차적으로 하나씩 증가하면서 진행되고 있으면 학습이 시작되었다는 것을 알 수 있다.
+
+    <img src="./config/training_last.png">
+    
+    위와 같이 저장되었다고 나타난다면 제대로 learning이 끝났다.
+
 3. Detection
+
+    Pretrained model을 사용하는 것이 아니라 직접 training을 시켜서 weight파일을 얻는 경우에는, /yolov5/runs/train/exp 폴더 안에 결과값이 저장된다.
+    ```python
+    import torch
+    import cv2
+    from google.colab.patches import cv2_imshow
+
+    weight_file_path = '/runs/train/exp/weight/best.pt'
+    model = torch.hub.load('ultralytics/yolov5', 'custom', path=weight_file_path force_reload=True, trust_repo=True)
+    img_zidane = '/data/images/zidane.jpg'
+    img_bus = '/data/images/bus.jpg'
+
+    yolo_1 = model(cv2.imread(img_zidane))
+    yolo_2 = model(cv2.imread(img_bus))
+    img_1 = yolo_1.render()[0]
+    img_2 = yolo_2.render()[0]
+    cv2_imshow(img_1)
+    cv2_imshow(img_2)
+    ```
+    위와 같이 코드를 작성하면, 직접 학습시킨 weight파일로 제대로 detection이 되는지 확인해 볼 수 있다.
