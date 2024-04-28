@@ -64,7 +64,7 @@
 
         <img src="./config/roboflow_11.png">
 
-        Format을 자신이 사용할 Model Architecture로 설정한다. 예제로 진행중인 Project는 YOLOv5 model을 사용하고 있으므로 YOLOv5를 선택하고 진행한다.
+        Format을 자신이 사용할 Model Architecture로 설정한다. 예제로 진행중인 Project는 YOLOv5 model을 사용하고 있으므로 `YOLO v5 PyTorch`를 선택하고 진행한다.
 
         `Show Download Code` 를 누르고 다음으로 진행한다.
 
@@ -76,10 +76,20 @@
     
     <img src="./config/roboflow_13.png">
 
-    앞선 과정에서 진행했던 것과 같이 위의 사진처럼 코드를 셀에 입력하여 drive와 연동시킨다. 그리고 현재 윛를 MyDrive로 이동까지 시킨다.
+    앞선 과정에서 진행했던 것과 같이 위의 사진처럼 코드를 셀에 입력하여 drive와 연동시킨다. 그리고 현재 위치를 MyDrive로 이동시킨다.
 
     그리고 roboflow에서 마지막에 `jupyter` 탭에서 복사한 코드 전체를 입력하고 실행한다.
 
     <img src="./config/roboflow_14.png">
 
-    위의 사진처럼 실행하면 좌측에 해당 폴더가 생긴 것을 확인할 수 있다. 폴더 명은 자신이 설정한 project의 이름이므로 사람마다 다를 것이다.
+    만약 경고 창이 나온다면 취소를 누른다. 실행이 완료되면 위의 사진처럼 실행하면 좌측에 해당 폴더가 생긴 것을 확인할 수 있다. 폴더 명은 자신이 설정한 project의 이름이므로 사람마다 다를 것이다.
+
+    데이터셋의 다운로드가 완료된 다음 아래와 같이 데이터셋 안에 존재하는 `data.yaml` 파일을 yolov5 폴더 안으로 옮기고 `yolov5` 폴더로 이동한다.
+
+    <img src="./config/roboflow_15.png">
+
+    그리고 나서 yolov5 폴더 안에 `data.yaml` 파일을 이동했으므로, 이동된 파일을 더블클릭하면 우측에 해당 파일이 나타나게 된다. 그리고 오른쪽 열린 파일에서 `test`, `train`, `valid` 의 위치를 수정해주면 된다.
+
+    <img src="./config/roboflow_16.png">
+
+    위의 사진을 참고해서 `../${자신의 project name}/test/images` 와 같은 형태로 3가지 모두 수정해준다.
