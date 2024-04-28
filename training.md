@@ -60,23 +60,37 @@
 
 
     2. Ultralytics에서 제공하는 `detect.py` 를 이용해 Detection을 진행하기도 하지만 직접 파이썬 파일을 작성해 진행한다면 다양하게 이용해 볼 수 있다.
-    ```python
-    import torch
-    import cv2
-    from google.colab.patches import cv2_imshow
+        ```python
+        import torch
+        import cv2
+        from google.colab.patches import cv2_imshow
 
-    model = torch.hub.load('./', 'custom', path='runs/train/exp/weights/best.pt', source='local', force_reload=True, trust_repo=True)
-    img_zidane = cv2.imread('./data/images/zidane.jpg')
-    img_bus = cv2.imread('./data/images/bus.jpg')
+        model = torch.hub.load('./', 'custom', path='runs/train/exp/weights/best.pt', source='local', force_reload=True, trust_repo=True)
+        img_zidane = cv2.imread('./data/images/zidane.jpg')
+        img_bus = cv2.imread('./data/images/bus.jpg')
 
-    yolo_1 = model(img_zidane)
-    yolo_2 = model(img_bus)
-    img_1 = yolo_1.render()[0]
-    img_2 = yolo_2.render()[0]
-    cv2_imshow(img_1)
-    cv2_imshow(img_2)
-    ```
-    위와 같이 코드를 작성하면, 직접 학습시킨 weight파일로 제대로 detection이 되는지 확인해 볼 수 있다.
+        yolo_1 = model(img_zidane)
+        yolo_2 = model(img_bus)
+        img_1 = yolo_1.render()[0]
+        img_2 = yolo_2.render()[0]
+        cv2_imshow(img_1)
+        cv2_imshow(img_2)
+        ```
+        위와 같이 코드를 작성하면, 직접 학습시킨 weight파일로 제대로 detection이 되는지 확인해 볼 수 있다.
 
-    추가적으로 해볼만한 프로젝트는 지금은 사진이 input인데 video를 input으로 해서 진행해 보는 것이다. 그리고 webcam을 통해 들어오는 실시간 카메라 이미지를 사용해서 진행해 보는 것이다. 하지만, webcam을 사용하는 방식은 colab이 아닌 local environment에서 실행해야 한다.
+        추가적으로 해볼만한 프로젝트는 지금은 사진이 input인데 video를 input으로 해서 진행해 보는 것이다. 그리고 webcam을 통해 들어오는 실시간 카메라 이미지를 사용해서 진행해 보는 것이다. 하지만, webcam을 사용하는 방식은 colab이 아닌 local environment에서 실행해야 한다.
+        
+### Additional Explanation
+`python train.py` 뒤에 붙는 `--weights --cfg --data` 에 대한 설명
+
+1. `--weights`:
+
+    이 인수는 모델 학습을 시작할 때 사용할 가중치 파일의 경로를 지정하는 인수다. 가중치 파일에는 모델의 파라미터가 저장되어 있고, 이 파일을 사용함으로써 이미 어느 학습이 진행된 상태인 weight 파일에 추가 학습을 시작할 수 있다. 예를 들어, `--wights yolov5m.pt` 라고 하면, 이미 학습된 pretrained model인 `yolov5m.pt` 에 추가적으로 학습해 특정 dataset에 대한 조정을 할 수 있다.
     
+2. `--cfg` :
+
+    이 인수는 모델의 구성을 정의하는 설정 파일의 경로를 지정한다. 구성 파일에는 모델의 아키텍처에 대한 정보가 포함되어 있다. 이는 네트워크의 각 계층(layer)의 유형, 크기, 필터 수, 활성화 함수 등과 같은 매개변수를 정의한다. 구성 파일은 모델이 어떻게 구성되어 있는지를 정의하고, 이를 통해 학습 과정이나 추론 시 어떤 계산이 이루어지는지를 제어한다. 예를 들어, `--cfg --yolov5m.yaml` 라고 하면, 학습을 할 데이터에 대해서 `yolov5m.yaml` 파일에 설명되어있는 모델의 아키텍처에 의해서 계산되어 학습이 진행된다는 뜻이다.
+
+3. `--data` :
+
+    이 인수는 학습에 사용될 데이터셋에 대한 정보를 담고 있는 파일의 경로를 지정한다. 일반적으로 이 파일에는 데이터셋의 클래스 수, 클래스 이름, 훈련 데이터의 경로, 검증 데이터의 경로, 테스트 데이터의 경로 등이 포함된다. 이 파일을 통해 모델이 어떤 데이터를 학습하고 검증해야 하는지, 어떤 클래스를 인식해야 하는지 등의 정보를 제공받게 된다.
