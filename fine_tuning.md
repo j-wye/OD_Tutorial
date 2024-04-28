@@ -88,8 +88,11 @@
 
     <img src="./config/roboflow_15.png">
 
-    그리고 나서 yolov5 폴더 안에 `data.yaml` 파일을 이동했으므로, 이동된 파일을 더블클릭하면 우측에 해당 파일이 나타나게 된다. 그리고 오른쪽 열린 파일에서 `test`, `train`, `valid` 의 위치를 수정해주면 된다.
+    그리고 나서 yolov5 폴더 안에 `data.yaml` 파일을 이동했으므로, 이동된 파일을 더블클릭하면 우측에 해당 파일이 나타나게 된다. 그리고 오른쪽 열린 파일에서 `test`, `train`, `valid` 의 위치를 아래의 사진과 같이 `../${자신의 project name}/test/images` 와 같은 형태로 3가지 모두 수정해주면 된다.
 
     <img src="./config/roboflow_16.png">
 
-    위의 사진을 참고해서 `../${자신의 project name}/test/images` 와 같은 형태로 3가지 모두 수정해준다.
+    ```python
+    !python train.py --weights '' --cfg models/yolov5m.yaml --data data.yaml --epochs 300 --batch-size 32 --name fine_tuning
+    ```
+    위의 코드를 통해 learning을 진행하면 자신이 직접 labeling한 dataset에 대해서 Object Detection이 가능한 weight 파일을 얻을 수 있다. `--name` 설정을 통해 원하는 폴더 이름으로 `runs/train/` 폴더 안에 저장시킬 수 있다.
