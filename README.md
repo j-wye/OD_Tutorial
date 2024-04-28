@@ -74,4 +74,4 @@
 
 ## Training [🔗](./training.md)
 
-## Fine Tuning with Custom Dataset
+## Fine Tuning with Custom Dataset [🔗](./fine_tuning.md)
