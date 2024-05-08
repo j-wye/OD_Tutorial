@@ -17,8 +17,16 @@
 
 2. Training
     ```python
-    !python train.py --weights yolov5m.pt --cfg models/yolov5m.yaml --data coco128.yaml --epochs 300 --batch-size 32
+    !python train.py --weights yolov5n.pt --cfg models/yolov5n.yaml --data coco128.yaml --epochs 300 --batch-size 32
     ```
+
+    만약 오류가 발생한다면 아래의 코드를 먼저 실행하고 위의 코드를 다시 실행
+   ```python
+   %cd ../datasets/coco128/labels
+    !rm train2017.cache
+    %cd ../../../yolov5
+    !ls
+   ```
     `coco128` 이라는 dataset을 직접 학습을 진행한다.
 
     위와 같은 명령어를 통해 직접 학습을 진행해 볼 수 있다. `--weights` 뒤에 `''` 이와 같이 표시하면 pretrained model을 사용하지 않고 오로지 원하는 데이터 셋에 대해서 학습을 진행할 수 있다.
@@ -47,7 +55,7 @@
     
     위의 코드를 통해 위의 이미지와 같은 학습의 결과가 나오는 것을 확인할 수 있다.
     
-3. Detection
+4. Detection
     1. 기본적으로 Detection을 진행하기 위해 YOLOv5에서 제공하는 방식은 `detect.py` 를 사용하는 것이다. 이 방식은 아래와 같이 실행시켜볼 수 있다.
         ```python
         !python detect.py --weights runs/train/exp/weights/best.pt --source data/images/bus.jpg
