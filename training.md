@@ -23,9 +23,8 @@
     만약 오류가 발생한다면 아래의 코드를 먼저 실행하고 위의 코드를 다시 실행
    ```python
    %cd ../datasets/coco128/labels
-    !rm train2017.cache
-    %cd ../../../yolov5
-    !ls
+   !rm train2017.cache
+   %cd ../../../yolov5
    ```
     `coco128` 이라는 dataset을 직접 학습을 진행한다.
 
