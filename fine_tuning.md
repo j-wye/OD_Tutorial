@@ -92,7 +92,43 @@
 
     <img src="./config/roboflow_16.png">
 
-    ```python
-    !python train.py --weights '' --cfg models/yolov5m.yaml --data data.yaml --epochs 300 --batch-size 32 --name fine_tuning
+    ```bash
+    !python train.py --weights '' --cfg models/yolov5m.yaml --data data.yaml --epochs 300 --batch-size 32
     ```
-    위의 코드를 통해 learning을 진행하면 자신이 직접 labeling한 dataset에 대해서 Object Detection이 가능한 weight 파일을 얻을 수 있다. `--name` 설정을 통해 원하는 폴더 이름으로 `runs/train/` 폴더 안에 저장시킬 수 있다.
+    위의 코드를 통해 learning을 진행하면 자신이 직접 labeling한 dataset에 대해서 Object Detection이 가능한 weight 파일을 얻을 수 있다. 학습이 완료되면 `runs/train/exp/weights` 라는 주소의 위치에 `best.pt` 파일이 생성될 것이다.
+    
+    만약 학습시키는 중간에 여러번 취소했다가 실행하는 경우 `exp` 의 뒤에 숫자가 붙을 것인데 가장 높은 숫자의 폴더안에 가장 마지막에 학습시킨 데이터가 존재하기 때문에 그 폴더안에서 `best.pt` 파일을 사용하면 된다.
+
+    만약 중간에 명령을 중단했다면 아래의 코드를 사용해서 다시 학습을 진행하면 기존의 폴더를 삭제하고 진행할 수 있다.
+    ```bash
+    !rm -rf runs
+    !python train.py --weights '' --cfg models/yolov5m.yaml --data data.yaml --epochs 300 --batch-size 32
+    ```
+
+    `!rm -rf` 라는 명령어는 뒤에 작성할 폴더나 파일을 삭제하는 명령어다.
+
+    위와 같이 삭제하고 진행하면 코드를 재시작 할때마다 `runs/train/exp/weights/best.pt` 의 경로에 파일이 저장된다.
+
+    **만약 이 과정에서 시간이 너무 오래걸린다면 `yolov5s.yaml` 파일을 통해서 학습을 진행해도 되지만 정확도가 떨어지기 때문에 detection을 진행했을 때 결과가 안 나올수도 있다. 이럴경우 다시 진행해야 하므로 `yolov5m.yaml` 을 통해 먼저 진행하되, 시간이 너무 오래걸린다는 경고 문구와 함께 학습이 중단되는 경우에만 `yolov5s.yaml` 파일을 통해 학습을 진행할 수 있도록 한다.**
+
+4. Test Object Detection with your own dataset and weights file
+
+    자신이 직접 만든 dataset을 labeling하고 training을 진행했다. 제대로 training이 되었는지 확인하기 위해서 아래와 같은 과정을 거쳐서 확인해본다.
+
+    ```bash
+    !python detect.py --weights runs/train/exp/weights/best.pt --source ../${dataset_name}/test/images/${image_name}
+    ```
+
+    위의 코드를 실행하면 `runs/detect/exp/${image_name}` 해당 위치에 detect된 사진이 저장된다.
+
+    이렇게 저장된 사진을 아래와 같이 불러온다.
+
+    ```python
+    import cv2
+    from google.colab.patches import cv2_imshow
+
+    img = cv2.imread('./runs/detect/exp/${image_name}')
+    cv2_imshow(img)
+    ```
+
+    **위의 과정을 통해 사진을 띄웠을 때, 자신이 선정한 object가 학습되어 detection된 결과가 나타나야만 한다. 만약 나타나지 않은 경우, 학습이 잘못되었거나, dataset의 갯수가 너무 적거나 등등의 여러가지 문제가 원인이므로 다시 진행해야 한다.**

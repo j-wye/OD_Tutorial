@@ -29,12 +29,12 @@
 
 4. Google Colab과 Google Drive 연동
     
-    ```python
+    ```bash
     from google.colab import drive
     drive.mount('/content/drive')
     ```
     다음 셀에 아래와 같이 입력하면 :
-    ```python
+    ```bash
     %cd /content/drive/MyDrive
     ```
     => `현재 위치가 MyDrive로 이동` 하는 코드

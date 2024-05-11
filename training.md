@@ -6,7 +6,7 @@
     drive.mount('/content/drive')
     %cd /content/drive/MyDrive
     ```
-    ```
+    ```bash
     !git clone https://github.com/ultralytics/yolov5
     ```
     <img src="./config/yolov5_download.png">
@@ -16,16 +16,16 @@
     이렇게 되었을 때, `%cd yolov5` 를 입력해 현재 위치를 *yolov5* 폴더로 이동한다.
 
 2. Training
-    ```python
+    ```bash
     !python train.py --weights yolov5n.pt --cfg models/yolov5n.yaml --data coco128.yaml --epochs 300 --batch-size 32
     ```
 
     만약 오류가 발생한다면 아래의 코드를 먼저 실행하고 위의 코드를 다시 실행
-   ```python
-   %cd ../datasets/coco128/labels
-   !rm train2017.cache
-   %cd ../../../yolov5
-   ```
+    ```bash
+    %cd ../datasets/coco128/labels
+    !rm train2017.cache
+    %cd ../../../yolov5
+    ```
     `coco128` 이라는 dataset을 직접 학습을 진행한다.
 
     위와 같은 명령어를 통해 직접 학습을 진행해 볼 수 있다. `--weights` 뒤에 `''` 이와 같이 표시하면 pretrained model을 사용하지 않고 오로지 원하는 데이터 셋에 대해서 학습을 진행할 수 있다.
@@ -56,7 +56,7 @@
     
 4. Detection
     1. 기본적으로 Detection을 진행하기 위해 YOLOv5에서 제공하는 방식은 `detect.py` 를 사용하는 것이다. 이 방식은 아래와 같이 실행시켜볼 수 있다.
-        ```python
+        ```bash
         !python detect.py --weights runs/train/exp/weights/best.pt --source data/images/bus.jpg
         !python detect.py --weights runs/train/exp/weights/best.pt --source data/images/zidane.jpg
         ```
